@@ -24,9 +24,8 @@ void LoginDialog::on_loginBtn_clicked()
     }
     else
     {
-        QMessageBox::warning(this, QString::fromUtf8("Login Failed"), QString::fromUtf8("Username doesn't exist or password is wrong!"),
+        QMessageBox::warning(this, QString::fromUtf8("Login Failed"), QString::fromUtf8("user name or password error!"),
             QMessageBox::Yes);
-        this->show();
         ui->userLineEdit->clear();
         ui->pwdLineEdit->clear();
         ui->userLineEdit->setFocus();

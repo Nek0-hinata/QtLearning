@@ -152,28 +152,12 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>249</x>
-     <y>120</y>
+     <x>209</x>
+     <y>144</y>
     </hint>
     <hint type="destinationlabel">
      <x>248</x>
      <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>loginBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>LoginDialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>94</x>
-     <y>120</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>93</x>
-     <y>155</y>
     </hint>
    </hints>
   </connection>
