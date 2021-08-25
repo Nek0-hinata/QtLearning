@@ -13,3 +13,16 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+
+void MainWindow::on_actionsearching_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->search_ui);
+}
+
+
+void MainWindow::on_actiontongji_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->tongji_ui);
+}
+

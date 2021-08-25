@@ -17,6 +17,11 @@ public:
 
 private slots:
 
+
+    void on_actionsearching_triggered();
+
+    void on_actiontongji_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
