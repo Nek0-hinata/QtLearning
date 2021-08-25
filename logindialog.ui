@@ -44,14 +44,14 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>用户名：</string>
+        <string>卡号：</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="userLineEdit">
        <property name="placeholderText">
-        <string>请输入您的用户名</string>
+        <string>请输入您的一卡通编码</string>
        </property>
       </widget>
      </item>
