@@ -75,21 +75,6 @@ void ListClass::WriteToFile(string s) {
     this->tail->write2(s);
     stringstream ss;
     ss << s;
-    base.seekp(0, ios::beg);
-    for (int i = 0; i < Node::RMAX(); ++i) {
-        base << this->tail->str[i][0] << " ";
-    }
-    base << endl;
-    charge.seekp(0, ios::beg);
-    for (int i = 0; i < Node::RMAX(); ++i) {
-        charge << this->tail->str[i][1] << " ";
-    }
-    charge << endl;
-    consume.seekp(0, ios::beg);
-    for (int i = 0; i < Node::RMAX(); ++i) {
-        consume << this->tail->str[i][2] << " ";
-    }
-    consume << endl;
     tail->next = new Node;
     Node *p = tail;
     tail = tail->next;
@@ -99,7 +84,28 @@ void ListClass::WriteToFile(string s) {
 }
 
 ListClass::~ListClass() {
+    Node *p = this->head->next;
+    while (p->next != nullptr) {
+        base.seekp(0, ios::beg);
+        for (int i = 0; i < Node::RMAX(); ++i) {
+            base << p->str[i][0] << " ";
+        }
+        base << endl;
+        charge.seekp(0, ios::beg);
+        for (int i = 0; i < Node::RMAX(); ++i) {
+            charge << p->str[i][1] << " ";
+        }
+        charge << endl;
+        consume.seekp(0, ios::beg);
+        for (int i = 0; i < Node::RMAX(); ++i) {
+            consume << p->str[i][2] << " ";
+        }
+        consume << endl;
+        p = p->next;
+    }
     base.close();
     consume.close();
     charge.close();
+    delete head;
+    delete tail;
 }
