@@ -21,7 +21,9 @@ private:
 
     Node find(int id);
 
-    void Read();
+    void WriteToFile(string );  //录入
+
+    void Read();   //获取链表
 
     Node *head;
 

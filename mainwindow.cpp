@@ -26,3 +26,9 @@ void MainWindow::on_actiontongji_triggered()
     ui->stackedWidget->setCurrentWidget(ui->tongji_ui);
 }
 
+
+void MainWindow::on_actionluru_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->luru_ui);
+}
+

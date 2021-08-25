@@ -19,3 +19,16 @@ void Node::write(string s, int n) {
     }
     currentId = stoi(this->str[0][0]);
 }
+
+void Node::write2(std::string s) {
+    stringstream ss;
+    ss << s;
+    for (int i = 1; ss >> str[i][0] && i < 4 ; ++i) {
+
+    }
+}
+
+int Node::RMAX() {
+    return MAX;
+}
+

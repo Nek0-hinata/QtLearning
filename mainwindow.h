@@ -22,6 +22,8 @@ private slots:
 
     void on_actiontongji_triggered();
 
+    void on_actionluru_triggered();
+
 private:
     Ui::MainWindow *ui;
 };
