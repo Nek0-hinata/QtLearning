@@ -2,7 +2,7 @@
 #define LOGINDIALOG_H
 
 #include <QDialog>
-
+#include "adminlist.h"
 namespace Ui {
 class LoginDialog;
 }
@@ -12,6 +12,7 @@ class LoginDialog : public QDialog
     Q_OBJECT
 
 public:
+
     explicit LoginDialog(QWidget *parent = nullptr);
     ~LoginDialog();
 

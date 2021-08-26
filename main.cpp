@@ -2,8 +2,9 @@
 #include "logindialog.h"
 #include "fstream"
 #include <QApplication>
-
+#include "adminlist.h"
 int MAXID;
+AdminList AL;
 
 int main(int argc, char *argv[])
 {
@@ -11,9 +12,10 @@ int main(int argc, char *argv[])
     MainWindow w;
     LoginDialog login;
     std::ifstream idF;
-    idF.open("/data/ID.dat");
+    idF.open("/data/ID.dat", ios::in | ios::out | ios::ate);
     if (idF.is_open()) {
         std::string temp;
+        idF.seekg(0, ios::beg);
         if (std::getline(idF, temp)) {
             MAXID = std::stoi(temp);
         } else {

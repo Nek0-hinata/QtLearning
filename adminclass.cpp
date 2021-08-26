@@ -8,5 +8,5 @@ AdminClass::AdminClass()
 
 void AdminClass::write(string user, string password) {
     this->user = user;
-    this->pwd = md5(password);
+    this->pwd = password;
 }

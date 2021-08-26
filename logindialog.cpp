@@ -2,6 +2,9 @@
 #include "ui_logindialog.h"
 #include <QMessageBox>
 #include <QString>
+#include "adminlist.h"
+
+extern AdminList AL;
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
@@ -17,8 +20,7 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_loginBtn_clicked()
 {
-    if (ui->userLineEdit->text() == tr("admin") &&
-            ui->pwdLineEdit->text() == tr("123456"))
+    if (AL.find(ui->userLineEdit->text().toStdString(), ui->pwdLineEdit->text().toStdString()))
     {
         accept();
     }

@@ -3,8 +3,7 @@
 #include "md5.h"
 #include "sstream"
 
-AdminList::AdminList()
-{
+AdminList::AdminList() {
     this->tail = new AdminClass;
     this->head = new AdminClass;
     head->next = tail;
@@ -12,33 +11,35 @@ AdminList::AdminList()
     tail->prev = head;
     head->prev = nullptr;
     len = 0;
-    base.open("/data/user.dat", ios::ate);
+    base.open("E:\\Program_dev\\QtGui\\schoolWork\\schoolWork1\\data\\user.dat", ios::ate | ios::in | ios::out);
     base.seekg(0, ios::beg);
+    base.seekp(0, ios::beg);
     if (!base)
-        QMessageBox::warning(NULL, "warning!", "cannot open card_base.dat", QMessageBox::Yes);
+        QMessageBox::warning(NULL, "warning!", "cannot open user.dat", QMessageBox::Yes);
     this->Read();
 }
 
 void AdminList::Read() {
     string s;
     stringstream ss;
-    while (getline(base, s)) {
-        string u, p;
-        ss << s;
-        ss >> u >> p;
-        this->tail->write(u, p);
-        ss.clear();
-        tail->next = new AdminClass;
-        AdminClass *Ptr = tail;
-        tail = tail->next;
-        tail->prev = Ptr;
-        tail->next = nullptr;
-        len++;
-    }
-    if (len == 0) {
-        string user = "Admin";
+    if (getline(base, s)) {
+        do {
+            string u, p;
+            ss << s;
+            ss >> u >> p;
+            this->tail->write(u, p);
+            ss.clear();
+            tail->next = new AdminClass;
+            AdminClass *Ptr = tail;
+            tail = tail->next;
+            tail->prev = Ptr;
+            tail->next = nullptr;
+            len++;
+        } while (getline(base, s));
+    } else {
+        string user = "admin";
         string pwd = "123456";
-        this->tail->write(user, pwd);
+        this->tail->write(user, md5(pwd));
         AdminClass *Ptr = tail;
         tail = tail->next;
         tail->prev = Ptr;
@@ -55,9 +56,11 @@ bool AdminList::find(string user, string password) {
         return false;
     } else {
         AdminClass *temp = head->next;
-        while (temp->next != nullptr && temp->Ruser() != user && temp->Rpwd() != md5pwd) {
+        while (temp->next != nullptr) {
+            if (temp->Ruser() == user && temp->Rpwd() == md5pwd){
+                return true;
+            }
             temp = temp->next;
-            return true;
         }
         return false;
     }
