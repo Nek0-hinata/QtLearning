@@ -56,6 +56,10 @@ private slots:
 
     void on_actionguashi_triggered();
 
+    void on_pushButton_11_clicked();
+
+    void on_actionjiegua_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

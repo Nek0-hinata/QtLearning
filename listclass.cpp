@@ -216,15 +216,28 @@ void ListClass::Change(string id, string user, int kind, string status) {
     } else {
         while (p->next != nullptr) {
             if (id == p->str[0][0] && user == p->str[2][0]) {
-                if (stoi(p->str[6][0]) || stoi(p->str[7][0])) {
-                    string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 貌似已经离开了我们！ " + status;
-                    QMessageBox::warning(NULL, "哦不", QString::fromStdString(t), QMessageBox::Yes);
-                    return;
+                if (stoi(status)) {
+                    if (stoi(p->str[6][0]) || stoi(p->str[7][0])) {
+                        string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 貌似已经离开了我们！ " + status;
+                        QMessageBox::warning(NULL, "哦不", QString::fromStdString(t), QMessageBox::Yes);
+                        return;
+                    } else {
+                        p->str[kind][0] = status;
+                        string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 已成功将状态切换成了 " + status;
+                        QMessageBox::information(NULL, "好耶", QString::fromStdString(t), QMessageBox::Yes);
+                        return;
+                    }
                 } else {
-                    p->str[kind][0] = status;
-                    string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 已成功将状态切换成了 " + status;
-                    QMessageBox::information(NULL, "好耶", QString::fromStdString(t), QMessageBox::Yes);
-                    return;
+                    if (stoi(p->str[7][0])) {
+                        string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 貌似已经离开了我们！ " + status;
+                        QMessageBox::warning(NULL, "哦不", QString::fromStdString(t), QMessageBox::Yes);
+                        return;
+                    } else {
+                        p->str[kind][0] = status;
+                        string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 已成功将状态切换成了 " + status;
+                        QMessageBox::information(NULL, "好耶", QString::fromStdString(t), QMessageBox::Yes);
+                        return;
+                    }
                 }
             }
             p = p->next;

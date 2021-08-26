@@ -19,7 +19,6 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-
 void MainWindow::on_actionsearching_triggered() {
     ui->stackedWidget->setCurrentWidget(ui->search_ui);
 }
@@ -209,5 +208,24 @@ void MainWindow::on_pushButton_10_clicked()
 void MainWindow::on_actionguashi_triggered()
 {
     ui->stackedWidget->setCurrentWidget(ui->guashi_ui);
+}
+
+
+void MainWindow::on_pushButton_11_clicked()
+{
+        if (QMessageBox::Yes == QMessageBox::information(this, "注意！", "是否将该卡解除挂失", QMessageBox::Yes | QMessageBox::No)) {
+            LC.Change(ui->lineEdit_11->text().toStdString(), ui->lineEdit_12->text().toStdString(), 6 , std::to_string(0));
+            ui->lineEdit_11->setFocus();
+            ui->lineEdit_11->clear();
+            ui->lineEdit_12->clear();
+        } else {
+            ui->lineEdit_11->setFocus();
+        }
+}
+
+
+void MainWindow::on_actionjiegua_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->jiegua_ui);
 }
 
