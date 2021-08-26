@@ -7,6 +7,7 @@
 #include <ctime>
 
 long long MAXID;
+long long CASHID;
 AdminList AL;
 ListClass LC;
 //一卡通编号、种类（教工卡、学生卡、其它卡、临时卡）   基本信息
@@ -34,6 +35,17 @@ int main(int argc, char *argv[]) {
             MAXID = std::stoi(temp);
         } else {
             MAXID = 1;
+        }
+    }
+    idF.close();
+    idF.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\charge.dat)", ios::in | ios::out | ios::ate);
+    if (idF.is_open()) {
+        std::string temp;
+        idF.seekg(0, ios::beg);
+        if (std::getline(idF, temp)) {
+            CASHID = std::stoi(temp);
+        } else {
+            CASHID = 1;
         }
     }
     idF.close();

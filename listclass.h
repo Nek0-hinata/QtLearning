@@ -15,7 +15,7 @@ public:
 
     void Charge(string id, string money, int kinds);
 
-    int change(int id);
+    void Use(string s, int kind);
 
     void resetPtr() {Ptr = head->next;}
 

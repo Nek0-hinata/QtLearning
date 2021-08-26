@@ -11,15 +11,19 @@ public:
 
     void Read();
 
-    bool verify(string user, string password);
+    bool verify(string user, string password);   //用户验证
 
     void Reset() {Ptr = head->next;}
 
-    bool find(string user);
+    bool find(string user);  //用户是否存在
 
     void add(string user, string password);
 
     void del(string user, string password);
+
+    void change(string bPwd, string aPwd);
+
+    string getUser() {return Ptr->Ruser();}
 
     string Operators() {return Ptr->Ruser();}
 

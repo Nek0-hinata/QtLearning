@@ -157,3 +157,14 @@ bool AdminList::find(string user) {
         return false;
     }
 }
+
+void AdminList::change(string bPwd, string aPwd) {
+    if (this->verify(this->Ptr->Ruser(), bPwd)) {
+        this->Ptr->pwd = md5(aPwd);
+        QMessageBox::information(NULL, "好耶", "修改成功了！",
+                             QMessageBox::Yes);
+    } else {
+        QMessageBox::warning(NULL, "滴滴！", "密码错误",
+                             QMessageBox::Yes);
+    }
+}

@@ -7,6 +7,8 @@
 extern AdminList AL;
 extern ListClass LC;
 string KINDS[4] = {"Teacher", "Student", "Temp", "Other"};
+extern string GetTime();
+extern long long CASHID;
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -116,3 +118,68 @@ void MainWindow::on_pushButton_6_clicked()
 {
     LC.Charge(ui->cardNum->text().toStdString(), ui->chargeMoney->currentText().toStdString(), ui->cardKinds->currentIndex()+4);
 }
+
+void MainWindow::on_actionyuechakan_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->yue_ui);
+}
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    LC.resetPtr();
+    stringstream ss;
+    ss << LC.find(ui->lineEdit->text().toStdString(), 0);
+    string str[9];
+    for (int i = 0;ss >> str[i] && i < 9 ; ++i) {
+
+    }
+    ui->textBrowser_9->setText(QString::fromStdString(str[4]));
+    ui->textBrowser_10->setText(QString::fromStdString(str[5]));
+    ss.clear();
+}
+
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    if(!AL.verify(AL.getUser(), ui->lineEdit_5->text().toStdString())) {
+        QMessageBox::warning(this, "警告！", "密码错误！", QMessageBox::Yes);
+        ui->lineEdit_5->clear();
+    } else {
+        CASHID++;
+        string str = ui->lineEdit_2->text().toStdString() + " " + std::to_string(CASHID) + " " +
+                GetTime() + " " + ui->lineEdit_3->text().toStdString() + " " +
+                ui->lineEdit_4->text().toStdString() + " " + AL.getUser();
+        LC.Use(str, ui->comboBox->currentIndex()+4);
+        ui->lineEdit_2->clear();
+        ui->lineEdit_3->clear();
+        ui->lineEdit_4->clear();
+        ui->lineEdit_5->clear();
+    }
+}
+
+
+void MainWindow::on_actionshiyong_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->shiyong_ui);
+}
+
+
+void MainWindow::on_actionchangepwd_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->changepwd_ui);
+}
+
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    string aPwd = ui->lineEdit_6->text().toStdString();
+    string bPwd1 = ui->lineEdit_7->text().toStdString();
+    string bPwd2 = ui->lineEdit_8->text().toStdString();
+    if (bPwd1 != bPwd2) {
+        QMessageBox::warning(this, "警告！", "密码咋还能不一样啊？", QMessageBox::Yes);
+    } else {
+        AL.change(aPwd, bPwd1);
+    }
+}
+

@@ -10,7 +10,7 @@ using namespace std;
 extern long long MAXID;
 
 extern string GetTime();
-
+extern long long CASHID;
 extern AdminList AL;
 
 ListClass::ListClass() {
@@ -70,6 +70,41 @@ void ListClass::Read() {
     }
 }
 
+void ListClass::Use(string s, int kind) {
+    stringstream ss(s);
+    Node *p = head->next;
+    string s1[8];
+    for (int i = 0;ss >> s1[i] && i < 8; ++i) {
+
+    }
+    if (len == 0) {
+        QMessageBox::warning(NULL, "warning", "UNKNOWN FAIL",
+                             QMessageBox::Yes);
+    } else {
+        while (p->next != nullptr) {
+            if (p->str[0][0] == s1[0]) {
+                if (stoi(p->str[kind][0]) >= stoi(s1[3])) {
+                    p->str[1][2] = std::to_string(CASHID);
+                    p->str[2][2] = GetTime();
+                    int i1 = stoi(p->str[3][2]);
+                    p->str[3][2] = std::to_string(i1 + stoi(s1[3]));
+                    p->str[4][2] = s1[4];
+                    p->str[5][2] = s1[5];
+                    p->str[kind][0] = std::to_string(stoi(p->str[kind][0]) - stoi(s1[3]));
+                    string t = "您已消费 " + s1[3] + "元!";
+                    QMessageBox::information(NULL, "oops", QString::fromStdString(t), QMessageBox::Yes);
+                    return;
+                } else {
+                    QMessageBox::warning(NULL, "糟糕", "您没钱了！快去充点吧~", QMessageBox::Yes);
+                    return;
+                }
+            }
+            p = p->next;
+        }
+        QMessageBox::warning(NULL, "糟糕", "找不到您的卡片！", QMessageBox::Yes);
+    }
+}
+
 string ListClass::find(string s, int n) {
     if (len == 0) {
         QMessageBox::warning(NULL, "warning", "UNKNOWN FAIL",
@@ -113,9 +148,9 @@ void ListClass::Charge(string id, string money, int kinds) {
                 p->str[kinds][0] = std::to_string(t1+t2);
                 string t = "成功充值 " + money + "元!";
                 QMessageBox::information(NULL, "好耶", QString::fromStdString(t), QMessageBox::Yes);
+                return;
             }
             p = p->next;
-            return;
         }
         QMessageBox::warning(NULL, "糟糕", "找不到您的卡片！", QMessageBox::Yes);
     }
@@ -165,6 +200,9 @@ ListClass::~ListClass() {
     consume1.close();
     base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\ID.dat)", ios::in | ios::out | ios::trunc);
     base << MAXID;
+    base.close();
+    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\charge.dat)", ios::in | ios::out | ios::trunc);
+    base << CASHID;
     base.close();
     delete head;
     delete tail;
