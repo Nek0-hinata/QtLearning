@@ -7,6 +7,7 @@
 
 using namespace std;
 extern long long MAXID;
+extern string GetTime();
 
 ListClass::ListClass() {
     head = new Node;
@@ -88,6 +89,10 @@ string ListClass::find(string s, int n) {
         QMessageBox::warning(NULL, "糟糕", "已经到世界尽头了:)", QMessageBox::Yes);
         return PtrString;
     }
+}
+
+void ListClass::Charge() {
+
 }
 
 void ListClass::input(string s) {

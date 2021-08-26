@@ -105,3 +105,9 @@ void MainWindow::on_pushButton_5_clicked()
     QMessageBox::information(this, "震惊", "你已经把锚点重置了！");
 }
 
+
+void MainWindow::on_actionchongzhi_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->chongzhi_ui);
+}
+

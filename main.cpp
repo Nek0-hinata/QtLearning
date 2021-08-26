@@ -4,6 +4,8 @@
 #include <QApplication>
 #include "adminlist.h"
 #include "listclass.h"
+#include <ctime>
+
 long long MAXID;
 AdminList AL;
 ListClass LC;
@@ -12,9 +14,14 @@ ListClass LC;
 // 有效性等信息。
 //一卡通编号、充值金额、充值日期、操作员等    充值管理
 //一卡通编号、消费编号、消费日期、消费金额、消费地点、消费人员等  消费管理
+string GetTime() {
+    time_t now = time(0);
+    char dt[100];
+    strftime(dt, sizeof(dt),"%Y-%m-%d_%H:%M:%S", localtime(&now));
+    return dt;
+}
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
     LoginDialog login;
@@ -30,13 +37,10 @@ int main(int argc, char *argv[])
         }
     }
     idF.close();
-    if (login.exec()==QDialog::Accepted)
-    {
+    if (login.exec() == QDialog::Accepted) {
         w.show();
         return a.exec();
-    }
-    else
-    {
+    } else {
         return 0;
     }
 }

@@ -11,7 +11,11 @@ public:
 
     void Read();
 
-    bool find(string user, string password);
+    bool verify(string user, string password);
+
+    void Reset() {Ptr = head->next;}
+
+    bool find(string user);
 
     void add(string user, string password);
 
@@ -24,6 +28,8 @@ private:
     AdminClass *head;
 
     AdminClass *tail;
+
+    AdminClass *Ptr;
 
     int len;
 };

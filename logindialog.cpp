@@ -20,7 +20,8 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_loginBtn_clicked()
 {
-    if (AL.find(ui->userLineEdit->text().toStdString(), ui->pwdLineEdit->text().toStdString()))
+    AL.Reset();
+    if (AL.verify(ui->userLineEdit->text().toStdString(), ui->pwdLineEdit->text().toStdString()))
     {
         accept();
     }

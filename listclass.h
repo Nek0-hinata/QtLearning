@@ -13,7 +13,7 @@ public:
 
     ~ListClass();
 
-    void add();
+    void Charge();
 
     int change(int id);
 

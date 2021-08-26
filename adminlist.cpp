@@ -17,6 +17,7 @@ AdminList::AdminList() {
     if (!base)
         QMessageBox::warning(NULL, "warning!", "cannot open user.dat", QMessageBox::Yes);
     this->Read();
+    Ptr = head->next;
 }
 
 void AdminList::Read() {
@@ -49,19 +50,18 @@ void AdminList::Read() {
     }
 }
 
-bool AdminList::find(string user, string password) {
+bool AdminList::verify(string user, string password) {
     string md5pwd = md5(password);
     if (len == 0) {
         QMessageBox::warning(NULL, "warning", "UNKNOWN FAIL",
                              QMessageBox::Yes);
         return false;
     } else {
-        AdminClass *temp = head->next;
-        while (temp->next != nullptr) {
-            if (temp->Ruser() == user && temp->Rpwd() == md5pwd){
+        while (Ptr->next != nullptr) {
+            if (Ptr->Ruser() == user && Ptr->Rpwd() == md5pwd){
                 return true;
             }
-            temp = temp->next;
+            Ptr = Ptr->next;
         }
         return false;
     }
@@ -83,9 +83,9 @@ AdminList::~AdminList() {
 }
 
 void AdminList::add(string user, string password) {
-    if (find(user, password)) {
+    if (find(user)) {
         string info = "User " + user + " already exists!";
-        QMessageBox::information(NULL, "warning", QString::fromStdString(info),
+        QMessageBox::warning(NULL, "warning", QString::fromStdString(info),
                                  QMessageBox::Yes);
         return;
     }
@@ -106,7 +106,12 @@ void AdminList::add(string user, string password) {
 void AdminList::del(string user, string password) {
     string md5pwd = md5(password);
     if (user == "admin") {
-        QMessageBox::information(NULL, "warning", "deleting the reserved word!",
+        QMessageBox::warning(NULL, "warning", "deleting the reserved word!",
+                             QMessageBox::Yes);
+        return;
+    }
+    if (user == Ptr->user) {
+        QMessageBox::warning(NULL, "错误！", "无法删除活动中账号！",
                              QMessageBox::Yes);
         return;
     }
@@ -133,5 +138,22 @@ void AdminList::del(string user, string password) {
         string info = "User " + user + " doesn't exists!";
         QMessageBox::information(NULL, "warning", QString::fromStdString(info),
                                  QMessageBox::Yes);
+    }
+}
+
+bool AdminList::find(string user) {
+    if (len == 0) {
+        QMessageBox::warning(NULL, "warning", "UNKNOWN FAIL",
+                             QMessageBox::Yes);
+        return false;
+    } else {
+        AdminClass *temp = head->next;
+        while (temp->next != nullptr) {
+            if (temp->Ruser() == user){
+                return true;
+            }
+            temp = temp->next;
+        }
+        return false;
     }
 }
