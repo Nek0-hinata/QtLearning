@@ -21,6 +21,8 @@ public:
 
     string find(string str, int n);
 
+    void Change(string id, string user, int kind, string status);
+
     void input(string s);  //录入
 
     void Read();   //获取链表

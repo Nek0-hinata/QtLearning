@@ -58,7 +58,7 @@ void ListClass::Read() {
             len++;
         } while (getline(base, s));
     } else {
-        this->tail->write("1 teacher ymq NCUT 0 0 1 1", 0);
+        this->tail->write("1 teacher ymq NCUT 0 0 0 0", 0);
         this->tail->write("1 0 0 0", 1);
         this->tail->write("1 0 0 0 Beijing ymq", 2);
         tail->next = new Node;
@@ -206,4 +206,29 @@ ListClass::~ListClass() {
     base.close();
     delete head;
     delete tail;
+}
+
+void ListClass::Change(string id, string user, int kind, string status) {
+    Node *p = head->next;
+    if (len == 0) {
+        QMessageBox::warning(NULL, "warning", "UNKNOWN FAIL",
+                             QMessageBox::Yes);
+    } else {
+        while (p->next != nullptr) {
+            if (id == p->str[0][0] && user == p->str[2][0]) {
+                if (stoi(p->str[6][0]) || stoi(p->str[7][0])) {
+                    string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 貌似已经离开了我们！ " + status;
+                    QMessageBox::warning(NULL, "哦不", QString::fromStdString(t), QMessageBox::Yes);
+                    return;
+                } else {
+                    p->str[kind][0] = status;
+                    string t = "id为 " + p->str[0][0] + " 的用户 " + p->str[2][0] + " 已成功将状态切换成了 " + status;
+                    QMessageBox::information(NULL, "好耶", QString::fromStdString(t), QMessageBox::Yes);
+                    return;
+                }
+            }
+            p = p->next;
+        }
+        QMessageBox::warning(NULL, "糟糕", "找不到您的卡片！", QMessageBox::Yes);
+    }
 }

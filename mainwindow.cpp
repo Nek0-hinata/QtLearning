@@ -183,3 +183,31 @@ void MainWindow::on_pushButton_9_clicked()
     }
 }
 
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    if (ui->comboBox_2->currentIndex() == 1) {
+        if (QMessageBox::Yes == QMessageBox::warning(this, "警告！", "您即将永远失去您可爱的账号！", QMessageBox::Yes | QMessageBox::No)) {
+            LC.Change(ui->lineEdit_9->text().toStdString(), ui->lineEdit_10->text().toStdString(), ui->comboBox_2->currentIndex()+6, std::to_string(1));
+            ui->lineEdit_9->clear();
+            ui->lineEdit_10->clear();
+        } else {
+
+        }
+    } else {
+        if (QMessageBox::Yes == QMessageBox::warning(this, "警告！", "您即将挂失您可爱的账号！不过不要担心，该操作是可逆的！", QMessageBox::Yes | QMessageBox::No)) {
+            LC.Change(ui->lineEdit_9->text().toStdString(), ui->lineEdit_10->text().toStdString(), ui->comboBox_2->currentIndex()+6, std::to_string(1));
+            ui->lineEdit_9->clear();
+            ui->lineEdit_10->clear();
+        } else {
+
+        }
+    }
+}
+
+
+void MainWindow::on_actionguashi_triggered()
+{
+    ui->stackedWidget->setCurrentWidget(ui->guashi_ui);
+}
+

@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="search_ui">
      <widget class="QWidget" name="horizontalLayoutWidget">
@@ -993,6 +993,100 @@
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="guashi_ui">
+     <widget class="QLabel" name="label_31">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>100</y>
+        <width>151</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>请输入您的一卡通编号</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_9">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>110</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_32">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>160</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>请输入您的姓名</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_10">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>170</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_33">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>220</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>请选择要执行的操作</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_2">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>220</y>
+        <width>171</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>挂失</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>注销</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="pushButton_10">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>280</y>
+        <width>241</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>提交</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1019,7 +1113,6 @@
     </property>
     <addaction name="actionguashi"/>
     <addaction name="actionjiegua"/>
-    <addaction name="actionzhuxiao"/>
     <addaction name="actionchangepwd"/>
    </widget>
    <widget class="QMenu" name="menu_3">
@@ -1057,17 +1150,12 @@
   </action>
   <action name="actionguashi">
    <property name="text">
-    <string>挂失</string>
+    <string>挂失与注销</string>
    </property>
   </action>
   <action name="actionjiegua">
    <property name="text">
     <string>解挂</string>
-   </property>
-  </action>
-  <action name="actionzhuxiao">
-   <property name="text">
-    <string>注销</string>
    </property>
   </action>
   <action name="actionchongzhi">
