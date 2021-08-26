@@ -14,6 +14,9 @@ public:
     bool find(string user, string password);
 
     void add(string user, string password);
+
+    void del(string user, string password);
+
 private:
 
     fstream base;

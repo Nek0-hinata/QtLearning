@@ -24,6 +24,12 @@ private slots:
 
     void on_actionluru_triggered();
 
+    void on_actionzhuce_triggered();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
