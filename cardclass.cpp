@@ -17,6 +17,7 @@ void Node::write(string s, int n) {
     for (int i = 0;ss >>str[i][n] && i < MAX; ++i) {
 
     }
+    ss.clear();
 }
 
 void Node::write2(std::string s) {

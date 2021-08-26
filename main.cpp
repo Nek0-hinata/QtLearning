@@ -3,6 +3,7 @@
 #include "fstream"
 #include <QApplication>
 #include "adminlist.h"
+#include "listclass.h"
 int MAXID;
 AdminList AL;
 
