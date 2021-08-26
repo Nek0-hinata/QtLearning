@@ -10,18 +10,22 @@ CONFIG += c++11
 
 SOURCES += \
     adminclass.cpp \
+    adminlist.cpp \
     cardclass.cpp \
     listclass.cpp \
     logindialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    md5.cpp
 
 HEADERS += \
     adminclass.h \
+    adminlist.h \
     cardclass.h \
     listclass.h \
     logindialog.h \
-    mainwindow.h
+    mainwindow.h \
+    md5.h
 
 FORMS += \
     logindialog.ui \

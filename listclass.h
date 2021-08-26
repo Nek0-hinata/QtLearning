@@ -17,7 +17,7 @@ private:
 
     void add();
 
-    int change(int n);
+    int change(int id);
 
     Node find(int id);
 

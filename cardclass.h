@@ -16,9 +16,9 @@ public:
 
     Node *prev;
 
-    void write(std::string s, int n);
+    void write(std::string s, int n);   //写入自身存储区域
 
-    int currentId;
+    std::string currentId();
 
     void write2(std::string s);
 

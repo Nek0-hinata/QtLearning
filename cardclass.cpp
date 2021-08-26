@@ -17,7 +17,6 @@ void Node::write(string s, int n) {
     for (int i = 0;ss >>str[i][n] && i < MAX; ++i) {
 
     }
-    currentId = stoi(this->str[0][0]);
 }
 
 void Node::write2(std::string s) {
@@ -30,5 +29,9 @@ void Node::write2(std::string s) {
 
 int Node::RMAX() {
     return MAX;
+}
+
+string Node::currentId() {
+    return str[0][0];
 }
 

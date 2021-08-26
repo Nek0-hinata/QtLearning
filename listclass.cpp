@@ -15,14 +15,17 @@ ListClass::ListClass() {
     tail->prev = head;
     len = 0;
     currentId = -1;
-    base.open("/data/card_base.dat");
+    base.open("/data/card_base.dat", ios::ate);
+    base.seekg(0, ios::beg);
     stringstream sss;
     if (!base)
         QMessageBox::warning(NULL, "warning!", "cannot open card_base.dat", QMessageBox::Yes);
-    charge.open("/data/card_charge.dat");
+    charge.open("/data/card_charge.dat", ios::ate);
+    charge.seekg(0, ios::beg);
     if (!charge)
         QMessageBox::warning(NULL, "warning!", "cannot open card_charge.dat", QMessageBox::Yes);
-    consume.open("/data/card_consume.dat");
+    consume.open("/data/card_consume.dat", ios::ate);
+    consume.seekg(0, ios::beg);
     if (!consume)
         QMessageBox::warning(NULL, "warning!", "cannot open card_consume.dat", QMessageBox::Yes);
 }
@@ -54,20 +57,19 @@ Node ListClass::find(int id) {
     if (id > len) {
         QMessageBox::information(NULL, "warning", "out of bounds", QMessageBox::Yes);
     }
-    int x = 0;
     Node *p;
     if (id < len/2) {
         p = head->next;
-        while (p->next != nullptr && x++ != id){
+        while (p->next != nullptr && stoi(p->currentId()) != id){
             p = p->next;
         }
     } else {
         p = tail->prev;
-        while (p->prev != nullptr && x++ != id) {
+        while (p->prev != nullptr && stoi(p->currentId()) != id) {
             p = p->next;
         }
     }
-    this->currentId = p->currentId;
+    this->currentId = stoi(p->currentId());
     return *p;
 }
 
@@ -85,27 +87,33 @@ void ListClass::WriteToFile(string s) {
 
 ListClass::~ListClass() {
     Node *p = this->head->next;
+    base.close();
+    charge.close();
+    consume.close();
+    fstream base1("/data/card_base.dat", ios::out);
+    fstream charge1("/data/card_charge.dat", ios::out);
+    fstream consume1("/data/card_consume.dat", ios::out);
     while (p->next != nullptr) {
-        base.seekp(0, ios::beg);
+        base1.seekp(0, ios::end);
         for (int i = 0; i < Node::RMAX(); ++i) {
-            base << p->str[i][0] << " ";
+            base1 << p->str[i][0] << " ";
         }
-        base << endl;
-        charge.seekp(0, ios::beg);
+        base1 << endl;
+        charge1.seekp(0, ios::end);
         for (int i = 0; i < Node::RMAX(); ++i) {
-            charge << p->str[i][1] << " ";
+            charge1 << p->str[i][1] << " ";
         }
-        charge << endl;
-        consume.seekp(0, ios::beg);
+        charge1 << endl;
+        consume1.seekp(0, ios::end);
         for (int i = 0; i < Node::RMAX(); ++i) {
-            consume << p->str[i][2] << " ";
+            consume1 << p->str[i][2] << " ";
         }
-        consume << endl;
+        consume1 << endl;
         p = p->next;
     }
-    base.close();
-    consume.close();
-    charge.close();
+    base1.close();
+    charge1.close();
+    consume1.close();
     delete head;
     delete tail;
 }
