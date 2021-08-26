@@ -111,3 +111,8 @@ void MainWindow::on_actionchongzhi_triggered()
     ui->stackedWidget->setCurrentWidget(ui->chongzhi_ui);
 }
 
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    LC.Charge(ui->cardNum->text().toStdString(), ui->chargeMoney->currentText().toStdString(), ui->cardKinds->currentIndex()+4);
+}

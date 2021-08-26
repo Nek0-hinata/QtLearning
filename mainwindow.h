@@ -38,6 +38,8 @@ private slots:
 
     void on_actionchongzhi_triggered();
 
+    void on_pushButton_6_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

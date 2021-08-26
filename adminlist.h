@@ -21,6 +21,8 @@ public:
 
     void del(string user, string password);
 
+    string Operators() {return Ptr->Ruser();}
+
 private:
 
     fstream base;

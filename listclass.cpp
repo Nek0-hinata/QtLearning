@@ -2,12 +2,16 @@
 #include "cardclass.h"
 #include <fstream>
 #include <sstream>
+#include "adminlist.h"
 #include <string>
 #include <QMessageBox>
 
 using namespace std;
 extern long long MAXID;
+
 extern string GetTime();
+
+extern AdminList AL;
 
 ListClass::ListClass() {
     head = new Node;
@@ -91,8 +95,30 @@ string ListClass::find(string s, int n) {
     }
 }
 
-void ListClass::Charge() {
-
+//4公交费 5校内金额
+void ListClass::Charge(string id, string money, int kinds) {
+    Node *p = head->next;
+    if (len == 0) {
+        QMessageBox::warning(NULL, "warning", "UNKNOWN FAIL",
+                             QMessageBox::Yes);
+    } else {
+        while (p->next != nullptr) {
+            if (id == p->str[0][1]) {
+                int t1 = stoi(p->str[kinds][0]);
+                int t2 = stoi(money);
+                int t3 = stoi(p->str[1][1]);
+                p->str[1][1] = std::to_string(t2+t3);
+                p->str[2][1] = GetTime();
+                p->str[3][1] = AL.Operators();
+                p->str[kinds][0] = std::to_string(t1+t2);
+                string t = "成功充值 " + money + "元!";
+                QMessageBox::information(NULL, "好耶", QString::fromStdString(t), QMessageBox::Yes);
+            }
+            p = p->next;
+            return;
+        }
+        QMessageBox::warning(NULL, "糟糕", "找不到您的卡片！", QMessageBox::Yes);
+    }
 }
 
 void ListClass::input(string s) {
@@ -112,12 +138,14 @@ ListClass::~ListClass() {
     charge.close();
     consume.close();
     fstream base1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_base.dat)", ios::out | ios::in | ios::trunc);
-    fstream charge1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_charge.dat)", ios::out | ios::in | ios::trunc);
-    fstream consume1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_consume.dat)", ios::out | ios::in | ios::trunc);
+    fstream charge1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_charge.dat)",
+                    ios::out | ios::in | ios::trunc);
+    fstream consume1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_consume.dat)",
+                     ios::out | ios::in | ios::trunc);
     base1.seekp(0, ios::end);
     charge1.seekp(0, ios::end);
     consume1.seekp(0, ios::end);
-    do{
+    do {
         for (int i = 0; i < Node::RMAX(); ++i) {
             base1 << " " << p->str[i][0] << " ";
         }
@@ -131,7 +159,7 @@ ListClass::~ListClass() {
         }
         consume1 << endl;
         p = p->next;
-    }while (p->next != nullptr);
+    } while (p->next != nullptr);
     base1.close();
     charge1.close();
     consume1.close();
