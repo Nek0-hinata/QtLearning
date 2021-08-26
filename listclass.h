@@ -3,6 +3,7 @@
 
 #include "cardclass.h"
 #include "fstream"
+#include "vector"
 
 using namespace std;
 
@@ -16,7 +17,9 @@ public:
 
     int change(int id);
 
-    Node find(int id);
+    void resetPtr() {Ptr = head->next;}
+
+    string find(string str, int n);
 
     void input(string s);  //录入
 
@@ -29,9 +32,13 @@ private:
 
     Node *tail;
 
+    Node *Ptr;
+
     int len;
 
     int currentId;
+
+    string PtrString;
 };
 
 #endif // LISTCLASS_H

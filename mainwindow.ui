@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="search_ui">
      <widget class="QWidget" name="horizontalLayoutWidget">
@@ -63,7 +63,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox">
+        <widget class="QComboBox" name="searchingBox">
          <property name="maximumSize">
           <size>
            <width>141</width>
@@ -92,6 +92,16 @@
          </item>
          <item>
           <property name="text">
+           <string>公交费金额</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>校内金额</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>挂失</string>
           </property>
          </item>
@@ -111,7 +121,20 @@
           </size>
          </property>
          <property name="text">
-          <string>查找</string>
+          <string>查找下一个</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="maximumSize">
+          <size>
+           <width>101</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>重置锚点</string>
          </property>
         </widget>
        </item>
@@ -122,7 +145,7 @@
        <rect>
         <x>120</x>
         <y>120</y>
-        <width>61</width>
+        <width>62</width>
         <height>321</height>
        </rect>
       </property>
@@ -141,13 +164,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>姓名</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>种类</string>
@@ -155,9 +171,30 @@
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>姓名</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="label_4">
          <property name="text">
           <string>单位</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_15">
+         <property name="text">
+          <string>公交费金额</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>校内金额</string>
          </property>
         </widget>
        </item>
@@ -183,7 +220,7 @@
         <x>190</x>
         <y>120</y>
         <width>601</width>
-        <height>41</height>
+        <height>31</height>
        </rect>
       </property>
      </widget>
@@ -191,9 +228,9 @@
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>180</y>
+        <y>160</y>
         <width>601</width>
-        <height>41</height>
+        <height>31</height>
        </rect>
       </property>
      </widget>
@@ -201,9 +238,9 @@
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>240</y>
+        <y>200</y>
         <width>601</width>
-        <height>41</height>
+        <height>31</height>
        </rect>
       </property>
      </widget>
@@ -211,9 +248,9 @@
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>290</y>
+        <y>240</y>
         <width>601</width>
-        <height>41</height>
+        <height>31</height>
        </rect>
       </property>
      </widget>
@@ -221,9 +258,9 @@
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>340</y>
+        <y>280</y>
         <width>601</width>
-        <height>41</height>
+        <height>31</height>
        </rect>
       </property>
      </widget>
@@ -231,9 +268,42 @@
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>400</y>
+        <y>320</y>
         <width>601</width>
-        <height>41</height>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>50</y>
+        <width>41</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>查找</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_7">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>370</y>
+        <width>601</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_8">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>410</y>
+        <width>601</width>
+        <height>31</height>
        </rect>
       </property>
      </widget>

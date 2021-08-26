@@ -68,5 +68,40 @@ void MainWindow::on_pushButton_2_clicked() {
     string I = KINDS[ui->kinds->currentIndex()] + " " + ui->name->text().toStdString() + " " +
                ui->company->text().toStdString();
     LC.input(I);
+    ui->name->clear();
+    ui->company->clear();
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    stringstream ss;
+    ss << LC.find(ui->searchLine->text().toStdString(), ui->searchingBox->currentIndex());
+    string t;
+    ss >> t;
+    ui->textBrowser->setText(QString::fromStdString(t));
+    ss >> t;
+    ui->textBrowser_2->setText(QString::fromStdString(t));
+    ss >> t;
+    ui->textBrowser_3->setText(QString::fromStdString(t));
+    ss >> t;
+    ui->textBrowser_4->setText(QString::fromStdString(t));
+    ss >> t;
+    ui->textBrowser_5->setText(QString::fromStdString(t));
+    ss >> t;
+    ui->textBrowser_6->setText(QString::fromStdString(t));
+    ss >> t;
+    ui->textBrowser_7->setText(QString::fromStdString(t));
+    ss >> t;
+    ui->textBrowser_8->setText(QString::fromStdString(t));
+    ss.clear();
+    t.clear();
+}
+
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    LC.resetPtr();
+    QMessageBox::information(this, "震惊", "你已经把锚点重置了！");
 }
 

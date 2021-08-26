@@ -30,6 +30,7 @@ ListClass::ListClass() {
     if (!consume)
         QMessageBox::warning(NULL, "warning!", "cannot open card_consume.dat", QMessageBox::Yes);
     this->Read();
+    this->resetPtr();
 }
 
 void ListClass::Read() {
@@ -64,27 +65,29 @@ void ListClass::Read() {
     }
 }
 
-Node ListClass::find(int id) {
+string ListClass::find(string s, int n) {
     if (len == 0) {
-        QMessageBox::information(NULL, "warning", "list is empty", QMessageBox::Yes);
-    }
-    if (id > len) {
-        QMessageBox::information(NULL, "warning", "out of bounds", QMessageBox::Yes);
-    }
-    Node *p;
-    if (id < len / 2) {
-        p = head->next;
-        while (p->next != nullptr && stoi(p->currentId()) != id) {
-            p = p->next;
-        }
+        QMessageBox::warning(NULL, "warning", "UNKNOWN FAIL",
+                             QMessageBox::Yes);
+        return PtrString;
     } else {
-        p = tail->prev;
-        while (p->prev != nullptr && stoi(p->currentId()) != id) {
-            p = p->next;
+        while (Ptr->next != nullptr) {
+            if (s == Ptr->str[n][0]) {
+                PtrString.clear();
+                for (int i = 0; i < Node::RMAX(); ++i) {
+                    PtrString += Ptr->str[i][0] + " ";
+                }
+                QMessageBox::information(NULL, "好耶", "找到了！", QMessageBox::Yes);
+                Ptr = Ptr->next;
+                return PtrString;
+            } else {
+
+            }
+            Ptr = Ptr->next;
         }
+        QMessageBox::warning(NULL, "糟糕", "已经到世界尽头了:)", QMessageBox::Yes);
+        return PtrString;
     }
-    this->currentId = stoi(p->currentId());
-    return *p;
 }
 
 void ListClass::input(string s) {

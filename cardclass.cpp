@@ -1,6 +1,7 @@
 #include "cardclass.h"
 #include "fstream"
 #include "sstream"
+#include "QMessageBox"
 
 using namespace std;
 extern long long MAXID;
@@ -34,6 +35,7 @@ void Node::write2(std::string s) {
     for (int i = 1; ss >> str[i][0] && i < 4 ; ++i) {
 
     }
+    QMessageBox::information(NULL, "good news!", "Added successfully", QMessageBox::Yes);
 }
 
 int Node::RMAX() {
