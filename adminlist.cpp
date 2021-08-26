@@ -69,7 +69,7 @@ bool AdminList::find(string user, string password) {
 
 AdminList::~AdminList() {
     base.close();
-    base.open("E:\\Program_dev\\QtGui\\schoolWork\\schoolWork1\\data\\user.dat", ios::out | ios::in | ios::trunc);
+    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\user.dat)", ios::out | ios::in | ios::trunc);
     AdminClass *temp = this->head->next;
     base.seekp(0, ios::end);
     do {

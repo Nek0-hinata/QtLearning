@@ -12,18 +12,18 @@ public:
 
     ~ListClass();
 
-private:
-    fstream base, charge, consume;
-
     void add();
 
     int change(int id);
 
     Node find(int id);
 
-    void WriteToFile(string );  //录入
+    void input(string s);  //录入
 
     void Read();   //获取链表
+private:
+
+    fstream base, charge, consume;
 
     Node *head;
 

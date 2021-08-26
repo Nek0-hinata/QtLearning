@@ -6,6 +6,7 @@
 #include <QMessageBox>
 
 using namespace std;
+extern long long MAXID;
 
 ListClass::ListClass() {
     head = new Node;
@@ -16,15 +17,15 @@ ListClass::ListClass() {
     tail->prev = head;
     len = 0;
     currentId = -1;
-    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_base.dat)", ios::ate);
+    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_base.dat)", ios::ate | ios::in | ios::out);
     base.seekg(0, ios::beg);
     if (!base)
         QMessageBox::warning(NULL, "warning!", "cannot open card_base.dat", QMessageBox::Yes);
-    charge.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_charge.dat)", ios::ate);
+    charge.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_charge.dat)", ios::ate | ios::in | ios::out);
     charge.seekg(0, ios::beg);
     if (!charge)
         QMessageBox::warning(NULL, "warning!", "cannot open card_charge.dat", QMessageBox::Yes);
-    consume.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_consume.dat)", ios::ate);
+    consume.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_consume.dat)", ios::ate | ios::in | ios::out);
     consume.seekg(0, ios::beg);
     if (!consume)
         QMessageBox::warning(NULL, "warning!", "cannot open card_consume.dat", QMessageBox::Yes);
@@ -86,7 +87,8 @@ Node ListClass::find(int id) {
     return *p;
 }
 
-void ListClass::WriteToFile(string s) {
+void ListClass::input(string s) {
+    MAXID++;
     this->tail->write2(s);
     tail->next = new Node;
     Node *p = tail;
@@ -109,15 +111,15 @@ ListClass::~ListClass() {
     consume1.seekp(0, ios::end);
     do{
         for (int i = 0; i < Node::RMAX(); ++i) {
-            base1 << p->str[i][0] << " ";
+            base1 << " " << p->str[i][0] << " ";
         }
         base1 << endl;
         for (int i = 0; i < Node::RMAX(); ++i) {
-            charge1 << p->str[i][1] << " ";
+            charge1 << " " << p->str[i][1] << " ";
         }
         charge1 << endl;
         for (int i = 0; i < Node::RMAX(); ++i) {
-            consume1 << p->str[i][2] << " ";
+            consume1 << " " << p->str[i][2] << " ";
         }
         consume1 << endl;
         p = p->next;
@@ -125,6 +127,9 @@ ListClass::~ListClass() {
     base1.close();
     charge1.close();
     consume1.close();
+    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\ID.dat)", ios::in | ios::out | ios::trunc);
+    base << MAXID;
+    base.close();
     delete head;
     delete tail;
 }
