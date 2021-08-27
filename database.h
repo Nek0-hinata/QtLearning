@@ -26,6 +26,12 @@ public:
 
     void addCard(QString kinds, QString name, QString company);
 
+    void charge(QString id, QString money, QString kinds);
+
+    QSqlQuery find(QString id);
+
+    bool legal(QString id);
+
 private:
     void init();
 

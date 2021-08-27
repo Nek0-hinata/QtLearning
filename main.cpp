@@ -10,6 +10,7 @@
 #include <QtSql/QSqlQuery>
 #include <QtSql/QSqlError>
 #include <QtDebug>
+#include "QDir"
 
 bool isMysql = true;
 long long MAXID;
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
     LoginDialog login;
+    qDebug()<<QDir::currentPath();
     std::ifstream idF;
     idF.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\ID.dat)", ios::in | ios::out | ios::ate);
     if (idF.is_open()) {

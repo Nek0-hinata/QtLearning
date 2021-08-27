@@ -146,10 +146,14 @@ void MainWindow::on_actionchongzhi_triggered()
     ui->stackedWidget->setCurrentWidget(ui->chongzhi_ui);
 }
 
-
+//充值
 void MainWindow::on_pushButton_6_clicked()
 {
-    LC.Charge(ui->cardNum->text().toStdString(), ui->chargeMoney->currentText().toStdString(), ui->cardKinds->currentIndex()+4);
+    if (isMysql) {
+        DB.charge(ui->cardNum->text(), ui->chargeMoney->currentText(), ui->cardKinds->currentText());
+    } else {
+        LC.Charge(ui->cardNum->text().toStdString(), ui->chargeMoney->currentText().toStdString(), ui->cardKinds->currentIndex()+4);
+    }
 }
 
 void MainWindow::on_actionyuechakan_triggered()
