@@ -3,13 +3,20 @@
 #include "fstream"
 #include <QApplication>
 #include "adminlist.h"
+#include "database.h"
 #include "listclass.h"
-#include <ctime>
+#include <QCoreApplication>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+#include <QtDebug>
 
+bool isMysql = true;
 long long MAXID;
 long long CASHID;
 AdminList AL;
 ListClass LC;
+DataBase DB;
 //一卡通编号、种类（教工卡、学生卡、其它卡、临时卡）   基本信息
 // 、姓名、单位、公交费金额、校内金额、挂失（1表示正常，0表示挂失，此内容选做），
 // 有效性等信息。
@@ -21,6 +28,8 @@ string GetTime() {
     strftime(dt, sizeof(dt),"%Y-%m-%d_%H:%M:%S", localtime(&now));
     return dt;
 }
+
+void init();
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
@@ -55,4 +64,8 @@ int main(int argc, char *argv[]) {
     } else {
         return 0;
     }
+}
+
+void init() {
+
 }

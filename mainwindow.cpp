@@ -3,12 +3,15 @@
 #include "adminlist.h"
 #include "listclass.h"
 #include <QMessageBox>
+#include <database.h>
 
 extern AdminList AL;
 extern ListClass LC;
 string KINDS[4] = {"Teacher", "Student", "Temp", "Other"};
 extern string GetTime();
 extern long long CASHID;
+extern bool isMysql;
+extern DataBase DB;
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -38,20 +41,32 @@ void MainWindow::on_actionzhuce_triggered() {
     ui->stackedWidget->setCurrentWidget(ui->zhuce_ui);
 }
 
-
+//注册管理员
 void MainWindow::on_pushButton_3_clicked() {
-    if (ui->password1->text() != ui->password2->text()) {
-        QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+    if (isMysql) {
+        if (ui->password1->text() != ui->password2->text()) {
+            QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+        } else {
+            DB.addAdmin(ui->userName->text(), ui->password1->text());
+        }
+        ui->userName->clear();
+        ui->password1->clear();
+        ui->password2->clear();
+        ui->userName->setFocus();
     } else {
-        AL.add(ui->userName->text().toStdString(), ui->password1->text().toStdString());
+        if (ui->password1->text() != ui->password2->text()) {
+            QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+        } else {
+            AL.add(ui->userName->text().toStdString(), ui->password1->text().toStdString());
+        }
+        ui->userName->clear();
+        ui->password1->clear();
+        ui->password2->clear();
+        ui->userName->setFocus();
     }
-    ui->userName->clear();
-    ui->password1->clear();
-    ui->password2->clear();
-    ui->userName->setFocus();
 }
 
-
+//删除管理员
 void MainWindow::on_pushButton_4_clicked() {
     if (ui->password1->text() != ui->password2->text()) {
         QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);

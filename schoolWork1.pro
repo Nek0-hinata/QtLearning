@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,20 +12,24 @@ SOURCES += \
     adminclass.cpp \
     adminlist.cpp \
     cardclass.cpp \
+    database.cpp \
     listclass.cpp \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    md5.cpp
+    md5.cpp \
+    mysql.cpp
 
 HEADERS += \
     adminclass.h \
     adminlist.h \
     cardclass.h \
+    database.h \
     listclass.h \
     logindialog.h \
     mainwindow.h \
-    md5.h
+    md5.h \
+    mysql.h
 
 FORMS += \
     logindialog.ui \
