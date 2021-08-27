@@ -24,6 +24,8 @@ public:
 
     void deleteAdmin(QString user, QString pwd);
 
+    void addCard(QString kinds, QString name, QString company);
+
 private:
     void init();
 

@@ -69,8 +69,11 @@ void MainWindow::on_pushButton_3_clicked() {
 //删除管理员
 void MainWindow::on_pushButton_4_clicked() {
     if (isMysql) {
+        if (ui->userName->text() == QString::fromStdString("admin")) {
+            QMessageBox::critical(this, "警告警告警告", "您可不能删除这个用户啊", QMessageBox::Yes);
+        }
         if (ui->password1->text() != ui->password2->text()) {
-            QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+            QMessageBox::warning(this, "啊？？", "咋两次密码还能不一样呢？", QMessageBox::Yes);
         } else {
             DB.deleteAdmin(ui->userName->text(), ui->password1->text());
         }
@@ -80,7 +83,7 @@ void MainWindow::on_pushButton_4_clicked() {
         ui->userName->setFocus();
     } else {
         if (ui->password1->text() != ui->password2->text()) {
-            QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+            QMessageBox::warning(this, "啊？？", "咋两次密码还能不一样呢？", QMessageBox::Yes);
         } else {
             AL.del(ui->userName->text().toStdString(), ui->password1->text().toStdString());
         }
@@ -91,13 +94,17 @@ void MainWindow::on_pushButton_4_clicked() {
     }
 }
 
-
+//添加卡片信息
 void MainWindow::on_pushButton_2_clicked() {
-    string I = KINDS[ui->kinds->currentIndex()] + " " + ui->name->text().toStdString() + " " +
-               ui->company->text().toStdString();
-    LC.input(I);
-    ui->name->clear();
-    ui->company->clear();
+    if (isMysql) {
+        DB.addCard(ui->kinds->currentText(), ui->name->text(), ui->company->text());
+    } else {
+        string I = KINDS[ui->kinds->currentIndex()] + " " + ui->name->text().toStdString() + " " +
+                   ui->company->text().toStdString();
+        LC.input(I);
+        ui->name->clear();
+        ui->company->clear();
+    }
 }
 
 

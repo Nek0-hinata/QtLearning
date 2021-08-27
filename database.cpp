@@ -67,6 +67,7 @@ void DataBase::addAdmin(QString user, QString pwd) {
         q.bindValue(":user", user);
         q.bindValue(":pwd", QString::fromStdString(md5(pwd.toStdString())));
         q.exec();
+        QMessageBox::warning(NULL, "好耶！", "我们又新增了一名成员！");
     }
 }
 
@@ -92,5 +93,24 @@ void DataBase::deleteAdmin(QString user, QString pwd) {
         }
     } else {
         QMessageBox::warning(NULL, "糟糕", "查无此人啊", QMessageBox::Yes);
+    }
+}
+
+void DataBase::addCard(QString kinds, QString name, QString company) {
+    QSqlQuery q(db);
+    q.prepare("SELECT * FROM user_base WHERE user_name=:name AND user_company=:company");
+    q.bindValue(":user", name);
+    q.bindValue(":company", company);
+    q.exec();
+    if (!q.next()) {
+        q.prepare("INSERT INTO user_base (user_kinds, user_name, user_company) values (:kinds, :name, :company)");
+        q.bindValue(":kinds", kinds);
+        q.bindValue(":name", name);
+        q.bindValue(":company", company);
+        q.exec();
+        QString t = "已成功将用户 " + name + " 注册！";
+        QMessageBox::information(NULL, "离征服世界又近了一步呢！", t , QMessageBox::Yes);
+    } else {
+        QMessageBox::information(NULL, "警告！", "本程序禁止影分身！", QMessageBox::Yes);
     }
 }
