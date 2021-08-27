@@ -5,6 +5,7 @@
 #include "adminlist.h"
 #include <string>
 #include <QMessageBox>
+#include <QDebug>
 
 using namespace std;
 extern long long MAXID;
@@ -22,18 +23,18 @@ ListClass::ListClass() {
     tail->prev = head;
     len = 0;
     currentId = -1;
-    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_base.dat)", ios::ate | ios::in | ios::out);
+    base.open(R"(./data/card_base.dat)", ios::ate | ios::in | ios::out);
     base.seekg(0, ios::beg);
     if (!base)
-        QMessageBox::warning(NULL, "warning!", "cannot open card_base.dat", QMessageBox::Yes);
-    charge.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_charge.dat)", ios::ate | ios::in | ios::out);
+        qDebug() << "cannot open card_base.dat";
+    charge.open(R"(./data/card_charge.dat)", ios::ate | ios::in | ios::out);
     charge.seekg(0, ios::beg);
     if (!charge)
-        QMessageBox::warning(NULL, "warning!", "cannot open card_charge.dat", QMessageBox::Yes);
-    consume.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_consume.dat)", ios::ate | ios::in | ios::out);
+        qDebug() << "cannot open card_charge.dat";
+    consume.open(R"(./data/card_consume.dat)", ios::ate | ios::in | ios::out);
     consume.seekg(0, ios::beg);
     if (!consume)
-        QMessageBox::warning(NULL, "warning!", "cannot open card_consume.dat", QMessageBox::Yes);
+        qDebug() << "cannot open card_consume.dat";
     this->Read();
     this->resetPtr();
 }
@@ -172,10 +173,10 @@ ListClass::~ListClass() {
     base.close();
     charge.close();
     consume.close();
-    fstream base1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_base.dat)", ios::out | ios::in | ios::trunc);
-    fstream charge1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_charge.dat)",
+    fstream base1(R"(./data/card_base.dat)", ios::out | ios::in | ios::trunc);
+    fstream charge1(R"(./data/card_charge.dat)",
                     ios::out | ios::in | ios::trunc);
-    fstream consume1(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\card_consume.dat)",
+    fstream consume1(R"(./data/card_consume.dat)",
                      ios::out | ios::in | ios::trunc);
     base1.seekp(0, ios::end);
     charge1.seekp(0, ios::end);
@@ -198,10 +199,10 @@ ListClass::~ListClass() {
     base1.close();
     charge1.close();
     consume1.close();
-    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\ID.dat)", ios::in | ios::out | ios::trunc);
+    base.open(R"(./data/ID.dat)", ios::in | ios::out | ios::trunc);
     base << MAXID;
     base.close();
-    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\charge.dat)", ios::in | ios::out | ios::trunc);
+    base.open(R"(./data/charge.dat)", ios::in | ios::out | ios::trunc);
     base << CASHID;
     base.close();
     delete head;

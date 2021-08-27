@@ -6,23 +6,7 @@
 DataBase::DataBase()
 {
     db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName("127.0.0.1");
-    db.setPort(3306);
-    db.setDatabaseName("schoolqt");
-    db.setUserName("root");
-    db.setPassword("B79W55H78");
-    qDebug() << "开始连接";
-    db.open();
-    if(!db.open())
-    {
-        qDebug()<<"不能连接"<<"connect to mysql error"<<db.lastError().text();
-        return;
-    }
-    else
-    {
-        qDebug()<<"连接成功";
-        this->init();
-    }
+
 }
 
 void DataBase::init() {
@@ -289,7 +273,7 @@ void DataBase::deleteCard(QString id, QString user) {
 bool DataBase::setting(QString host, QString user, int port, QString database, QString pwd) {
     using namespace std;
     ofstream out;
-    out.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\flash.dat)", ios::out | ios::trunc);
+    out.open(R"(./data/flash.dat)", ios::out | ios::trunc);
     db.setHostName(host);
     db.setDatabaseName(database);
     db.setPassword(pwd);
@@ -309,6 +293,7 @@ bool DataBase::setting(QString host, QString user, int port, QString database, Q
     {
         qDebug()<<"连接成功";
         out.close();
+        this->init();
         return true;
     }
 }

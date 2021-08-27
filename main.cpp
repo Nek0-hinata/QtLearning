@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
     LoginDialog login;
     Sets st;
     Methods md;
+    init();
     if (md.exec() == QDialog::Accepted) {
         if (st.exec() == QDialog::Accepted) {
             if (login.exec() == QDialog::Accepted) {
@@ -65,7 +66,7 @@ int main(int argc, char *argv[]) {
 void init() {
     qDebug()<<QDir::currentPath();
     std::ifstream idF;
-    idF.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\ID.dat)", ios::in | ios::out | ios::ate);
+    idF.open(R"(./data/ID.dat)", ios::in | ios::out | ios::ate);
     if (idF.is_open()) {
         std::string temp;
         idF.seekg(0, ios::beg);
@@ -76,7 +77,7 @@ void init() {
         }
     }
     idF.close();
-    idF.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\charge.dat)", ios::in | ios::out | ios::ate);
+    idF.open(R"(./data/charge.dat)", ios::in | ios::out | ios::ate);
     if (idF.is_open()) {
         std::string temp;
         idF.seekg(0, ios::beg);
