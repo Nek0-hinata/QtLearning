@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="search_ui">
      <widget class="QWidget" name="horizontalLayoutWidget">
@@ -1233,7 +1233,6 @@
      <string>开始</string>
     </property>
     <addaction name="actionsearching"/>
-    <addaction name="actiontongji"/>
     <addaction name="actionluru"/>
     <addaction name="actionzhuce"/>
    </widget>

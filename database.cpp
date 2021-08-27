@@ -69,6 +69,7 @@ bool DataBase::verify(QString user, QString pwd) {
     q.exec();
     if (q.next()) {
         qDebug() << "密码正确";
+        userName = user;
         return true;
     } else {
         return false;
@@ -156,7 +157,6 @@ void DataBase::charge(QString id, QString money, QString kinds) {
     QSqlQuery temp = find(id);
     if (temp.next()) {
         QString name = temp.value(2).toString();
-        qDebug() << name << kinds << money;
         q.prepare("INSERT INTO card_log (user_id, user_name, in_cash, location) values (:id, :name, :money, :kinds)");
         q.bindValue(":id", id);
         q.bindValue(":name", name);
@@ -191,4 +191,96 @@ QSqlQuery DataBase::find(QString id) {
     q.bindValue(":id", id);
     q.exec();
     return q;
+}
+
+void DataBase::consume(QString id, QString money, QString loc, bool isIn) {
+    QSqlQuery q(db);
+    QSqlQuery temp = find(id);
+    if (temp.next()) {
+        if (isIn) {
+            q.prepare("INSERT INTO card_log (user_id, user_name, in_cash, location) values (:id, :name, :money, :loc)");
+            if (temp.value(4).toDouble() - money.toDouble() <= 0) {
+                QMessageBox::critical(NULL, "妈的", "还想白嫖？");
+                return;
+            }
+        } else {
+            q.prepare("INSERT INTO card_log (user_id, user_name, out_cash, location) values (:id, :name, :money, :loc)");
+            if (temp.value(5).toDouble() - money.toDouble() <= 0) {
+                QMessageBox::critical(NULL, "妈的", "还想白嫖？");
+                return;
+            }
+        }
+        QString name = temp.value(2).toString();
+        q.bindValue(":id", id);
+        q.bindValue(":name", name);
+        q.bindValue(":money", "-" + money);
+        q.bindValue(":loc", loc);
+        q.exec();
+        double num = 0;
+        if (!isIn) {
+            num = temp.value(5).toDouble();
+            num -= money.toDouble();
+            q.prepare("UPDATE user_base SET user_outcash=:money WHERE user_id=:id ;");
+            q.bindValue(":money", num);
+            q.bindValue(":id", id);
+            q.exec();
+        } else {
+            num = temp.value(4).toDouble();
+            num -= money.toDouble();
+            q.prepare("UPDATE user_base SET user_incash=:money WHERE user_id=:id ;");
+            q.bindValue(":money", num);
+            q.bindValue(":id", id);
+            q.exec();
+        }
+        QMessageBox::information(NULL, "想要被投币", "消费成功！ 您的卡内余额为： " + QString::fromStdString(std::to_string(num)));
+    }
+}
+
+void DataBase::changePwd(QString pwd) {
+    QSqlQuery q(db);
+    q.prepare("UPDATE admin_list SET admin_pwd=:pwd WHERE admin_name=:name ;");
+    q.bindValue(":pwd", QString::fromStdString(md5(pwd.toStdString())));
+    q.bindValue(":name", userName);
+    q.exec();
+}
+
+void DataBase::changeLoss(QString id, QString user, bool isBack) {
+    QSqlQuery q(db);
+    QSqlQuery temp = find(id);
+    if (temp.next()) {
+        if (temp.value(0).toString() == id && temp.value(2).toString() == user) {
+            q.prepare("UPDATE user_base SET user_loss=:status WHERE user_id=:id ;");
+            int status = 0;
+            if (isBack) status = 0;
+            else status = 1;
+            q.bindValue(":status", QString::fromStdString(std::to_string(status)));
+            q.bindValue(":id", id);
+            q.exec();
+            QMessageBox::information(NULL, "啊呀", isBack ? "我出狱了！" : "md我进去了");
+            return;
+        } else {
+            QMessageBox::critical(NULL, "不对劲！", "暗号错误，有内鬼！");
+            return;
+        }
+    } else {
+        QMessageBox::critical(NULL, "不对啊", "压根不存在！");
+    }
+}
+
+void DataBase::deleteCard(QString id, QString user) {
+    QSqlQuery q(db);
+    QSqlQuery temp = find(id);
+    if (temp.next()) {
+        if (temp.value(0).toString() == id && temp.value(2).toString() == user) {
+            q.prepare("DELETE FROM card_log WHERE user_id=:id; \n"
+                        "DELETE FROM user_base WHERE user_id=:id; ");
+            q.bindValue(":id", id);
+            q.exec();
+            QMessageBox::information(NULL, "啊呀", "又一个鲜活的小伙伴永远的离开了我们");
+            return;
+        } else {
+            QMessageBox::critical(NULL, "不对劲！", "暗号错误，有内鬼！");
+            return;
+        }
+    }
 }
