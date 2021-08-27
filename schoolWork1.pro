@@ -17,8 +17,7 @@ SOURCES += \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    md5.cpp \
-    mysql.cpp
+    md5.cpp
 
 HEADERS += \
     adminclass.h \
@@ -28,8 +27,7 @@ HEADERS += \
     listclass.h \
     logindialog.h \
     mainwindow.h \
-    md5.h \
-    mysql.h
+    md5.h
 
 FORMS += \
     logindialog.ui \

@@ -65,15 +65,32 @@ void DataBase::addAdmin(QString user, QString pwd) {
     } else {
         q.prepare("INSERT INTO admin_list(admin_name, admin_pwd) values (:user, :pwd)");
         q.bindValue(":user", user);
-        q.bindValue(":pwd", pwd);
+        q.bindValue(":pwd", QString::fromStdString(md5(pwd.toStdString())));
         q.exec();
     }
 }
 
 void DataBase::deleteAdmin(QString user, QString pwd) {
     QSqlQuery q(db);
-    q.prepare("DELETE FROM admin_list WHERE admin_name=:user AND admin_pwd=:pwd");
+    q.prepare("SELECT * FROM admin_list WHERE admin_name=:user");
     q.bindValue(":user", user);
-    q.bindValue(":pwd", pwd);
     q.exec();
+    if (q.next()) {
+        q.prepare("SELECT admin_pwd FROM admin_list WHERE admin_name=:user");
+        q.bindValue(":user", user);
+        q.exec();
+        q.next();
+        if (q.value(0) == QString::fromStdString(md5(pwd.toStdString()))) {
+            q.prepare("DELETE FROM admin_list WHERE admin_name=:user AND admin_pwd=:pwd");
+            q.bindValue(":user", user);
+            q.bindValue(":pwd", QString::fromStdString(md5(pwd.toStdString())));
+            q.exec();
+            QString t = "用户 " + user + " 已经永远的离开了我们！";
+            QMessageBox::information(NULL, "哎呀", "该用户已经永远的离开了我们！", QMessageBox::Yes);
+        } else {
+            QMessageBox::warning(NULL, "坏了", "你是不是忘记密码了！", QMessageBox::Yes);
+        }
+    } else {
+        QMessageBox::warning(NULL, "糟糕", "查无此人啊", QMessageBox::Yes);
+    }
 }

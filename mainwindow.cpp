@@ -68,15 +68,27 @@ void MainWindow::on_pushButton_3_clicked() {
 
 //删除管理员
 void MainWindow::on_pushButton_4_clicked() {
-    if (ui->password1->text() != ui->password2->text()) {
-        QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+    if (isMysql) {
+        if (ui->password1->text() != ui->password2->text()) {
+            QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+        } else {
+            DB.deleteAdmin(ui->userName->text(), ui->password1->text());
+        }
+        ui->userName->clear();
+        ui->password1->clear();
+        ui->password2->clear();
+        ui->userName->setFocus();
     } else {
-        AL.del(ui->userName->text().toStdString(), ui->password1->text().toStdString());
+        if (ui->password1->text() != ui->password2->text()) {
+            QMessageBox::warning(this, "warning", "The two passwords are inconsistent", QMessageBox::Yes);
+        } else {
+            AL.del(ui->userName->text().toStdString(), ui->password1->text().toStdString());
+        }
+        ui->userName->clear();
+        ui->password1->clear();
+        ui->password2->clear();
+        ui->userName->setFocus();
     }
-    ui->userName->clear();
-    ui->password1->clear();
-    ui->password2->clear();
-    ui->userName->setFocus();
 }
 
 
