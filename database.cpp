@@ -1,6 +1,7 @@
 #include "database.h"
 #include "QMessageBox"
 #include "md5.h"
+#include "fstream"
 #include "QtDebug"
 DataBase::DataBase()
 {
@@ -282,5 +283,32 @@ void DataBase::deleteCard(QString id, QString user) {
             QMessageBox::critical(NULL, "不对劲！", "暗号错误，有内鬼！");
             return;
         }
+    }
+}
+
+bool DataBase::setting(QString host, QString user, int port, QString database, QString pwd) {
+    using namespace std;
+    ofstream out;
+    out.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\flash.dat)", ios::out | ios::trunc);
+    db.setHostName(host);
+    db.setDatabaseName(database);
+    db.setPassword(pwd);
+    db.setUserName(user);
+    db.setPort(port);
+    out << host.toStdString() << " " << user.toStdString() << " " << to_string(port) << " " << database.toStdString() << endl;
+    qDebug() << "开始连接";
+    db.open();
+    if(!db.open())
+    {
+        qDebug()<<"不能连接"<<"connect to mysql error"<<db.lastError().text();
+        QMessageBox::critical(NULL, "警告", "无法连接到数据库，请检查您的配置是否正确");
+        out.close();
+        return false;
+    }
+    else
+    {
+        qDebug()<<"连接成功";
+        out.close();
+        return true;
     }
 }

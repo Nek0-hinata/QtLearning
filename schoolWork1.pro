@@ -17,7 +17,9 @@ SOURCES += \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    md5.cpp
+    md5.cpp \
+    methods.cpp \
+    sets.cpp
 
 HEADERS += \
     adminclass.h \
@@ -27,11 +29,15 @@ HEADERS += \
     listclass.h \
     logindialog.h \
     mainwindow.h \
-    md5.h
+    md5.h \
+    methods.h \
+    sets.h
 
 FORMS += \
     logindialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    methods.ui \
+    sets.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

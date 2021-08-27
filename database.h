@@ -18,6 +18,8 @@ public:
 
     QSqlQuery getConnection();
 
+    bool setting(QString host, QString user, int port, QString database, QString pwd);
+
     bool verify(QString user, QString pwd);  //验证合法性
 
     void addAdmin(QString user, QString pwd);  //添加管理员

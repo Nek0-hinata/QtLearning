@@ -11,8 +11,10 @@
 #include <QtSql/QSqlError>
 #include <QtDebug>
 #include "QDir"
+#include "sets.h"
+#include "methods.h"
 
-bool isMysql = true;
+bool isMysql = false;
 long long MAXID;
 long long CASHID;
 AdminList AL;
@@ -36,6 +38,31 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
     LoginDialog login;
+    Sets st;
+    Methods md;
+    if (md.exec() == QDialog::Accepted) {
+        if (st.exec() == QDialog::Accepted) {
+            if (login.exec() == QDialog::Accepted) {
+                w.show();
+                return a.exec();
+            } else {
+                return 0;
+            }
+        } else {
+            a.exit(0);
+        }
+    } else {
+        if (login.exec() == QDialog::Accepted) {
+            w.show();
+            return a.exec();
+        } else {
+            return 0;
+        }
+    }
+
+}
+
+void init() {
     qDebug()<<QDir::currentPath();
     std::ifstream idF;
     idF.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\ID.dat)", ios::in | ios::out | ios::ate);
@@ -60,14 +87,4 @@ int main(int argc, char *argv[]) {
         }
     }
     idF.close();
-    if (login.exec() == QDialog::Accepted) {
-        w.show();
-        return a.exec();
-    } else {
-        return 0;
-    }
-}
-
-void init() {
-
 }

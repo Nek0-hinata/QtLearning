@@ -181,7 +181,7 @@ void MainWindow::on_actionyuechakan_triggered()
     ui->stackedWidget->setCurrentWidget(ui->yue_ui);
 }
 
-//查询
+//余额查询
 void MainWindow::on_pushButton_7_clicked()
 {
     if (isMysql) {
