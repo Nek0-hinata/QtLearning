@@ -2,6 +2,7 @@
 #include "QMessageBox"
 #include "md5.h"
 #include "sstream"
+#include "QtDebug"
 
 AdminList::AdminList() {
     this->tail = new AdminClass;
@@ -11,12 +12,13 @@ AdminList::AdminList() {
     tail->prev = head;
     head->prev = nullptr;
     len = 0;
-    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\user.dat)", ios::ate | ios::in | ios::out);
+    base.open(R"(./data/user.dat)", ios::ate | ios::in | ios::out);
     base.seekg(0, ios::beg);
     base.seekp(0, ios::beg);
     if (!base)
-        QMessageBox::warning(NULL, "warning!", "cannot open user.dat", QMessageBox::Yes);
-    this->Read();
+        qDebug() <<"cannot open user.dat";
+    else
+        this->Read();
     Ptr = head->next;
 }
 
@@ -69,7 +71,7 @@ bool AdminList::verify(string user, string password) {
 
 AdminList::~AdminList() {
     base.close();
-    base.open(R"(E:\Program_dev\QtGui\schoolWork\schoolWork1\data\user.dat)", ios::out | ios::in | ios::trunc);
+    base.open(R"(./data/user.dat)", ios::out | ios::in | ios::trunc);
     AdminClass *temp = this->head->next;
     base.seekp(0, ios::end);
     do {
