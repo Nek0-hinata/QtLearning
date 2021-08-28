@@ -16,7 +16,10 @@ Sets::Sets(QWidget *parent) :
     ifstream in;
     in.open("./data/flash.dat", ios::in | ios::ate);
     if (!in.is_open()) {
-        QMessageBox::critical(this, "严重错误", "无法打开文件夹，请检查路径是否正确，否则程序可能无法运行！");
+        fstream wrt;
+        wrt.open("./data/flash.dat", ios::in | ios::out | ios::trunc);
+        QMessageBox::critical(this, "严重错误", "关键文件缺失，如果您是第一次弹出此窗口，请重启程序！\n否则请在exe目录下手动创建data文件夹");
+        wrt.close();
     }
     in.seekg(0, ios::beg);
     stringstream ss;

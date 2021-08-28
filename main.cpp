@@ -36,11 +36,11 @@ void init();
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
+    init();
     MainWindow w;
     LoginDialog login;
     Sets st;
     Methods md;
-    init();
     if (md.exec() == QDialog::Accepted) {
         if (st.exec() == QDialog::Accepted) {
             if (login.exec() == QDialog::Accepted) {
@@ -60,10 +60,14 @@ int main(int argc, char *argv[]) {
             return 0;
         }
     }
-
+    return 0;
 }
 
 void init() {
+    QDir dir;
+    if (!dir.exists(QDir::currentPath() + "/data")) {
+        dir.mkdir(QDir::currentPath() + "/data");
+    }
     qDebug()<<QDir::currentPath();
     std::ifstream idF;
     idF.open(R"(./data/ID.dat)", ios::in | ios::out | ios::ate);
