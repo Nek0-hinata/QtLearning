@@ -60,8 +60,11 @@ private slots:
 
     void on_actionjiegua_triggered();
 
+    void on_searchingBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
+
     QSqlQuery q;
 };
 #endif // MAINWINDOW_H

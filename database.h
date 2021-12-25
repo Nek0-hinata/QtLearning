@@ -38,11 +38,13 @@ public:
 
     void deleteCard(QString id, QString user);
 
-    QSqlQuery find(QString id);   //根据id找整行user
+    QSqlQuery find(QString id, QString str);   //根据id找整行user
 
     bool legal(QString id);
 
     QString ReturnUser() {return userName;}
+
+    QSqlDatabase getDb();
 
 private:
     void init();

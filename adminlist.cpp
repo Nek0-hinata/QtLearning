@@ -47,6 +47,7 @@ void AdminList::Read() {
         AdminClass *Ptr = tail;
         tail = tail->next;
         tail->prev = Ptr;
+
         tail->next = nullptr;
         len++;
     }

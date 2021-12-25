@@ -28,6 +28,7 @@ Sets::Sets(QWidget *parent) :
     ss << s;
     string t;
     ss >> t;
+    t.empty() ? ui->host->setFocus() : ui->password->setFocus();
     ui->host->setText(QString::fromStdString(t));
     t.clear();
     ss >> t;
