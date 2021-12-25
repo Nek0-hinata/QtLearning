@@ -14,9 +14,9 @@ void DataBase::init() {
     q.exec("create table if not exists `admin_list` (`admin_id` INT unique auto_increment PRIMARY KEY,`admin_name` VARCHAR(20) UNIQUE NOT NULL,`admin_pwd` VARCHAR(512) NOT NULL);");
     q.exec("select * from admin_list");
     if (!q.next()) {
-        q.prepare("INSERT INTO admin_list(admin_name, admin_pwd) values (?, ?);");
-        q.addBindValue("admin");
-        q.addBindValue("e10adc3949ba59abbe56e057f20f883e");
+        q.prepare("INSERT INTO admin_list(admin_name, admin_pwd) values (:user, :pwd);");
+        q.bindValue(":user", "admin");
+        q.bindValue(":pwd", "e10adc3949ba59abbe56e057f20f883e");
     }
     q.exec("create table if not exists `user_base` (\n"
            "`user_id` INT unique auto_increment PRIMARY KEY,\n"
@@ -139,7 +139,7 @@ bool DataBase::legal(QString id) {
 
 void DataBase::charge(QString id, QString money, QString kinds) {
     QSqlQuery q(db);
-    QSqlQuery temp = find(id);
+    QSqlQuery temp = find(id, QString::fromStdString("user_id"));
     if (temp.next()) {
         QString name = temp.value(2).toString();
         q.prepare("INSERT INTO card_log (user_id, user_name, in_cash, location) values (:id, :name, :money, :kinds)");
@@ -170,9 +170,9 @@ void DataBase::charge(QString id, QString money, QString kinds) {
     }
 }
 
-QSqlQuery DataBase::find(QString id) {
+QSqlQuery DataBase::find(QString id, QString str) {
     QSqlQuery q(db);
-    q.prepare("SELECT * FROM user_base WHERE user_id=:id ;");
+    q.prepare(QString("SELECT * FROM user_base WHERE %1 =(:id) ;").arg(str));
     q.bindValue(":id", id);
     q.exec();
     return q;
@@ -180,7 +180,7 @@ QSqlQuery DataBase::find(QString id) {
 
 void DataBase::consume(QString id, QString money, QString loc, bool isIn) {
     QSqlQuery q(db);
-    QSqlQuery temp = find(id);
+    QSqlQuery temp = find(id, QString::fromStdString("user_id"));
     if (temp.next()) {
         if (isIn) {
             q.prepare("INSERT INTO card_log (user_id, user_name, in_cash, location) values (:id, :name, :money, :loc)");
@@ -231,7 +231,7 @@ void DataBase::changePwd(QString pwd) {
 
 void DataBase::changeLoss(QString id, QString user, bool isBack) {
     QSqlQuery q(db);
-    QSqlQuery temp = find(id);
+    QSqlQuery temp = find(id, QString::fromStdString("user_id"));
     if (temp.next()) {
         if (temp.value(0).toString() == id && temp.value(2).toString() == user) {
             q.prepare("UPDATE user_base SET user_loss=:status WHERE user_id=:id ;");
@@ -254,7 +254,7 @@ void DataBase::changeLoss(QString id, QString user, bool isBack) {
 
 void DataBase::deleteCard(QString id, QString user) {
     QSqlQuery q(db);
-    QSqlQuery temp = find(id);
+    QSqlQuery temp = find(id, QString::fromStdString("user_id"));
     if (temp.next()) {
         if (temp.value(0).toString() == id && temp.value(2).toString() == user) {
             q.prepare("DELETE FROM card_log WHERE user_id=:id; \n"
@@ -296,4 +296,8 @@ bool DataBase::setting(QString host, QString user, int port, QString database, Q
         this->init();
         return true;
     }
+}
+
+QSqlDatabase DataBase::getDb() {
+    return db;
 }
