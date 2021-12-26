@@ -187,14 +187,14 @@
        <item>
         <widget class="QLabel" name="label_15">
          <property name="text">
-          <string>公交费金额</string>
+          <string>校内金额</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_16">
          <property name="text">
-          <string>校内金额</string>
+          <string>公交卡余额</string>
          </property>
         </widget>
        </item>
